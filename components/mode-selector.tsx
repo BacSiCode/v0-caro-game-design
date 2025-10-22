@@ -2,16 +2,22 @@
 
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Users, Bot, Grid3x3 } from "lucide-react"
+import { Users, Bot, Grid3x3, Zap, Target, Brain } from "lucide-react"
 import { useState } from "react"
-import type { GameMode } from "@/app/page"
+import type { GameMode, Difficulty } from "@/app/page"
 
 interface ModeSelectorProps {
-  onSelectMode: (mode: GameMode, size: number) => void
+  onSelectMode: (mode: GameMode, size: number, difficulty?: Difficulty) => void
 }
 
 export function ModeSelector({ onSelectMode }: ModeSelectorProps) {
   const [selectedSize, setSelectedSize] = useState(15)
+  const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty>("medium")
+  const [showDifficultySelect, setShowDifficultySelect] = useState(false)
+
+  const handlePvEStart = () => {
+    onSelectMode("pve", selectedSize, selectedDifficulty)
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-accent/20 to-background flex flex-col items-center justify-center p-4 sm:p-8">
@@ -19,7 +25,7 @@ export function ModeSelector({ onSelectMode }: ModeSelectorProps) {
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-foreground mb-4 text-balance">Caro Game</h1>
           <p className="text-lg sm:text-xl text-muted-foreground text-pretty">
-            Trò chơi cờ caro với AI thông minh sử dụng thuật toán Minimax
+            Trò chơi cờ caro với AI thông minh sử dụng thuật toán Minimax + Alpha-Beta Pruning
           </p>
         </div>
 
@@ -54,7 +60,7 @@ export function ModeSelector({ onSelectMode }: ModeSelectorProps) {
               <div>
                 <h2 className="text-2xl sm:text-3xl font-bold text-card-foreground mb-2">Người vs Người</h2>
                 <p className="text-muted-foreground text-sm sm:text-base text-pretty">
-                  Chơi với bạn bè trên cùng một thiết bị
+                  Chơi với bạn bè trên cùng một thiết bị. Hỗ trợ xin hòa và đầu hàng.
                 </p>
               </div>
               <Button size="lg" className="w-full mt-4">
@@ -65,7 +71,7 @@ export function ModeSelector({ onSelectMode }: ModeSelectorProps) {
 
           <Card
             className="p-6 sm:p-8 hover:shadow-xl transition-all duration-300 hover:scale-[1.02] cursor-pointer bg-card/80 backdrop-blur-sm border-2 hover:border-secondary"
-            onClick={() => onSelectMode("pve", selectedSize)}
+            onClick={() => setShowDifficultySelect(true)}
           >
             <div className="flex flex-col items-center text-center space-y-4">
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-secondary/10 flex items-center justify-center">
@@ -74,7 +80,7 @@ export function ModeSelector({ onSelectMode }: ModeSelectorProps) {
               <div>
                 <h2 className="text-2xl sm:text-3xl font-bold text-card-foreground mb-2">Người vs Máy</h2>
                 <p className="text-muted-foreground text-sm sm:text-base text-pretty">
-                  Thử thách với AI sử dụng thuật toán Minimax
+                  Thử thách với AI ở 3 chế độ khó khác nhau
                 </p>
               </div>
               <Button size="lg" variant="secondary" className="w-full mt-4">
@@ -84,13 +90,56 @@ export function ModeSelector({ onSelectMode }: ModeSelectorProps) {
           </Card>
         </div>
 
+        {showDifficultySelect && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+            <Card className="w-full max-w-md p-6 sm:p-8 bg-card border-2">
+              <h2 className="text-2xl font-bold text-card-foreground mb-6 text-center">Chọn độ khó</h2>
+              <div className="space-y-3">
+                <Button
+                  variant={selectedDifficulty === "easy" ? "default" : "outline"}
+                  onClick={() => setSelectedDifficulty("easy")}
+                  className="w-full h-14 text-lg font-semibold"
+                >
+                  <Zap className="mr-3 h-5 w-5" />
+                  Dễ
+                </Button>
+                <Button
+                  variant={selectedDifficulty === "medium" ? "default" : "outline"}
+                  onClick={() => setSelectedDifficulty("medium")}
+                  className="w-full h-14 text-lg font-semibold"
+                >
+                  <Target className="mr-3 h-5 w-5" />
+                  Trung bình
+                </Button>
+                <Button
+                  variant={selectedDifficulty === "hard" ? "default" : "outline"}
+                  onClick={() => setSelectedDifficulty("hard")}
+                  className="w-full h-14 text-lg font-semibold"
+                >
+                  <Brain className="mr-3 h-5 w-5" />
+                  Khó
+                </Button>
+              </div>
+              <div className="flex gap-3 mt-6">
+                <Button variant="outline" onClick={() => setShowDifficultySelect(false)} className="flex-1">
+                  Hủy
+                </Button>
+                <Button onClick={handlePvEStart} className="flex-1">
+                  Bắt đầu
+                </Button>
+              </div>
+            </Card>
+          </div>
+        )}
+
         <div className="mt-8 p-6 bg-muted/50 rounded-lg border">
           <h3 className="font-semibold text-foreground mb-2">Luật chơi:</h3>
           <ul className="text-sm text-muted-foreground space-y-1 leading-relaxed">
             <li>• Người chơi lần lượt đặt quân X và O lên bàn cờ</li>
             <li>• Người chơi đầu tiên tạo được 5 quân liên tiếp (ngang, dọc, chéo) sẽ thắng</li>
             <li>• Trong chế độ chơi với máy, bạn là X và đi trước, máy là O</li>
-            <li>• AI sử dụng thuật toán Minimax để đưa ra nước đi tối ưu</li>
+            <li>• AI sử dụng thuật toán Minimax + Alpha-Beta Pruning để đưa ra nước đi tối ưu</li>
+            <li>• Chế độ Dễ: AI đôi khi đánh ngẫu nhiên, Trung bình: cân bằng, Khó: tấn công mạnh</li>
           </ul>
         </div>
       </div>

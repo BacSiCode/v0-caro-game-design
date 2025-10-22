@@ -1,8 +1,8 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { cn } from "@/lib/utils"
-import type { Player, GameMode } from "@/app/page"
+import type { Player, GameMode, Difficulty } from "@/app/page"
 import { checkWinner } from "@/lib/game-logic"
 import { getBestMove } from "@/lib/minimax"
 
@@ -16,6 +16,7 @@ interface GameBoardProps {
   winningLine: number[][]
   setWinningLine: (line: number[][]) => void
   gameMode: GameMode
+  difficulty?: Difficulty
   moveCount: number
   setMoveCount: (count: number) => void
 }
@@ -30,22 +31,51 @@ export function GameBoard({
   winningLine,
   setWinningLine,
   gameMode,
+  difficulty = "medium",
   moveCount,
   setMoveCount,
 }: GameBoardProps) {
   const boardSize = board.length
+  const aiThinkingRef = useRef(false)
+
+  const getAIDelay = () => {
+    if (difficulty === "easy") return 300
+    if (difficulty === "medium") return 500
+    return 800 // hard mode takes longer to think
+  }
 
   useEffect(() => {
-    if (gameMode === "pve" && currentPlayer === "O" && !winner) {
+    if (gameMode === "pve" && currentPlayer === "O" && !winner && !aiThinkingRef.current) {
+      aiThinkingRef.current = true
       const timer = setTimeout(() => {
-        const aiMove = getBestMove(board, "O", moveCount)
+        const aiMove = getBestMove(board, "O", difficulty, moveCount)
         if (aiMove) {
-          handleCellClick(aiMove.row, aiMove.col)
+          makeAIMove(aiMove.row, aiMove.col)
         }
-      }, 300) // Reduced delay from 500ms to 300ms for faster AI response
+        aiThinkingRef.current = false
+      }, getAIDelay())
       return () => clearTimeout(timer)
     }
-  }, [currentPlayer, winner, gameMode, board])
+  }, [currentPlayer, winner, gameMode, board, moveCount, difficulty])
+
+  const makeAIMove = (row: number, col: number) => {
+    if (board[row][col] || winner) return
+
+    const newBoard = board.map((r) => [...r])
+    newBoard[row][col] = "O"
+    setBoard(newBoard)
+    setMoveCount(moveCount + 1)
+
+    const winResult = checkWinner(newBoard, row, col, "O")
+    if (winResult) {
+      setWinner("O")
+      setWinningLine(winResult)
+    } else if (moveCount + 1 >= boardSize * boardSize) {
+      setWinner("draw")
+    } else {
+      setCurrentPlayer("X")
+    }
+  }
 
   const handleCellClick = (row: number, col: number) => {
     if (board[row][col] || winner) return
