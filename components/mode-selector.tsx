@@ -25,7 +25,7 @@ export function ModeSelector({ onSelectMode }: ModeSelectorProps) {
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-foreground mb-4 text-balance">Caro Game</h1>
           <p className="text-lg sm:text-xl text-muted-foreground text-pretty">
-            Trò chơi cờ caro với AI thông minh sử dụng thuật toán Minimax + Alpha-Beta Pruning
+            Cờ Caro người với máy – Bạn có đủ sức thắng
           </p>
         </div>
 
@@ -60,7 +60,7 @@ export function ModeSelector({ onSelectMode }: ModeSelectorProps) {
               <div>
                 <h2 className="text-2xl sm:text-3xl font-bold text-card-foreground mb-2">Người vs Người</h2>
                 <p className="text-muted-foreground text-sm sm:text-base text-pretty">
-                  Chơi với bạn bè trên cùng một thiết bị. Hỗ trợ xin hòa và đầu hàng.
+                  Chơi với bạn bè
                 </p>
               </div>
               <Button size="lg" className="w-full mt-4">
@@ -80,7 +80,7 @@ export function ModeSelector({ onSelectMode }: ModeSelectorProps) {
               <div>
                 <h2 className="text-2xl sm:text-3xl font-bold text-card-foreground mb-2">Người vs Máy</h2>
                 <p className="text-muted-foreground text-sm sm:text-base text-pretty">
-                  Thử thách với AI ở 3 chế độ khó khác nhau
+                  Chơi với máy
                 </p>
               </div>
               <Button size="lg" variant="secondary" className="w-full mt-4">
@@ -138,10 +138,16 @@ export function ModeSelector({ onSelectMode }: ModeSelectorProps) {
             <li>• Người chơi lần lượt đặt quân X và O lên bàn cờ</li>
             <li>• Người chơi đầu tiên tạo được 5 quân liên tiếp (ngang, dọc, chéo) sẽ thắng</li>
             <li>• Trong chế độ chơi với máy, bạn là X và đi trước, máy là O</li>
-            <li>• AI sử dụng thuật toán Minimax + Alpha-Beta Pruning để đưa ra nước đi tối ưu</li>
-            <li>• Chế độ Dễ: AI đôi khi đánh ngẫu nhiên, Trung bình: cân bằng, Khó: tấn công mạnh</li>
+            <li>• Chế độ dễ: AI đôi khi đánh ngẫu nhiên</li>
+            <li>• Chế độ trung bình: cân bằng</li>
+            <li>• Chế độ khó: tấn công mạnh</li>
           </ul>
         </div>
+
+        <div className="mt-8 text-center text-sm text-gray-500 max-w-xl mx-auto p-4">
+      
+         @Đồ án môn trí tuệ nhân tạo - Thực hiện bởi nhóm 1.
+      </div>
       </div>
     </div>
   )

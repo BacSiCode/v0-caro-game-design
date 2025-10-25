@@ -7,6 +7,7 @@ import { GameStatus } from "@/components/game-status"
 import { RequestModal } from "@/components/request-modal"
 import { Button } from "@/components/ui/button"
 import { Flag, Handshake } from "lucide-react"
+import { ConfirmationModal } from "@/components/confirmation-modal"
 import type { GameMode, Difficulty, Player, GameRequest } from "@/lib/types"
 
 export default function CaroGame() {
@@ -24,6 +25,7 @@ export default function CaroGame() {
   const [moveCount, setMoveCount] = useState(0)
 
   const [gameRequest, setGameRequest] = useState<GameRequest | null>(null)
+  const [surrenderConfirmation, setSurrenderConfirmation] = useState(false)
 
   const resetGame = () => {
     const newBoard = Array(boardSize)
@@ -70,12 +72,14 @@ export default function CaroGame() {
   }
 
   const handleSurrenderRequest = () => {
+    setSurrenderConfirmation(true)
+  }
+
+  const confirmSurrender = () => {
+    setSurrenderConfirmation(false)
     if (gameMode === "pvp") {
-      setGameRequest({
-        type: "surrender",
-        from: currentPlayer,
-        status: "pending",
-      })
+      const opponent = currentPlayer === "X" ? "O" : "X"
+      setWinner(opponent)
     } else {
       setWinner(currentPlayer === "X" ? "O" : "X")
     }
@@ -163,6 +167,18 @@ export default function CaroGame() {
           request={gameRequest}
           onAccept={() => handleRequestResponse(true)}
           onReject={() => handleRequestResponse(false)}
+        />
+      )}
+
+      {surrenderConfirmation && (
+        <ConfirmationModal
+          title="Xác nhận đầu hàng"
+          message="Bạn có chắc chắn muốn đầu hàng không?"
+          onConfirm={confirmSurrender}
+          onCancel={() => setSurrenderConfirmation(false)}
+          confirmText="Đầu hàng"
+          cancelText="Hủy"
+          isDangerous={true}
         />
       )}
     </div>
