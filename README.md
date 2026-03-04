@@ -1,30 +1,71 @@
-# Caro game design
+==============================
+🎮 CARO GAME (GOMOKU ONLINE)
+==============================
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+Ứng dụng web chơi Caro (Gomoku) với giao diện hiện đại, được xây dựng bằng v0.app và triển khai tự động trên Vercel.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/lenguyenhongphuc999-gmailcoms-projects/v0-caro-game-design)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/gMSSfZJXDvz)
+Dự án cho phép cập nhật nhanh chóng: mỗi khi thay đổi hoặc deploy, hệ thống sẽ tự động đồng bộ và xuất bản phiên bản mới mà không cần cấu hình thủ công.
 
-## Overview
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+==============================
+🚀 TỔNG QUAN
+==============================
 
-## Deployment
+Đây là trò chơi Caro trực tuyến với các chức năng cơ bản:
 
-Your project is live at:
+- Hiển thị bàn cờ
+- Đánh dấu lượt chơi X / O
+- Kiểm tra thắng – thua
+- Reset ván chơi
+- Giao diện thân thiện, dễ sử dụng
 
-**[https://vercel.com/lenguyenhongphuc999-gmailcoms-projects/v0-caro-game-design](https://vercel.com/lenguyenhongphuc999-gmailcoms-projects/v0-caro-game-design)**
+Mục tiêu của dự án là xây dựng một ứng dụng game web đơn giản, tối ưu trải nghiệm người dùng và dễ dàng mở rộng trong tương lai.
 
-## Build your app
 
-Continue building your app on:
+==============================
+🌐 DEMO TRỰC TUYẾN
+==============================
 
-**[https://v0.app/chat/projects/gMSSfZJXDvz](https://v0.app/chat/projects/gMSSfZJXDvz)**
+Link truy cập:
+https://vercel.com/lenguyenhongphuc999-gmailcoms-projects/v0-caro-game-design
 
-## How It Works
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+==============================
+⚙️ CÁCH HOẠT ĐỘNG
+==============================
+
+Quy trình triển khai tự động:
+
+1. Thiết kế giao diện trên v0.app
+2. Deploy phiên bản mới
+3. Code tự động đồng bộ về repository
+4. Vercel tự động build và publish website
+5. Người dùng truy cập được phiên bản mới ngay lập tức
+
+
+==============================
+📦 CÔNG NGHỆ SỬ DỤNG
+==============================
+
+- React / Next.js
+- v0.app (AI UI Builder)
+- Vercel (Hosting & CI/CD)
+
+
+==============================
+🎯 ĐỊNH HƯỚNG PHÁT TRIỂN
+==============================
+
+- Chế độ chơi 2 người online (real-time)
+- AI bot đấu với máy
+- Lưu lịch sử trận đấu
+- Dark mode
+- Responsive cho mobile
+- Tối ưu hiệu năng và UI/UX
+
+
+==============================
+👤 TÁC GIẢ
+==============================
+
+Lê Nguyễn Hồng Phúc
