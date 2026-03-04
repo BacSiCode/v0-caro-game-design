@@ -1,6 +1,6 @@
-# 🎮 Caro Game (Gomoku Online)
+# 🎮 Caro Game 
 
-Ứng dụng web chơi **Caro (Gomoku)** với giao diện hiện đại, được xây dựng bằng v0.app và triển khai tự động trên Vercel.
+Ứng dụng web chơi **Caro** với giao diện hiện đại, được xây dựng bằng v0.app và triển khai tự động trên Vercel.
 
 Dự án cho phép cập nhật nhanh chóng: mỗi khi thay đổi hoặc deploy, hệ thống sẽ tự động đồng bộ và xuất bản phiên bản mới mà không cần cấu hình thủ công.
 
